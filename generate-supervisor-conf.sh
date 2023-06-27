@@ -36,6 +36,12 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
 [supervisorctl]
 serverurl=unix:///tmp/supervisor.sock         ; use a unix:// URL  for a unix socket
+
+[program:redis-cluster-proxy]
+command=/redis-cluster-proxy/src/redis-cluster-proxy localhost:7000,localhost:7001,localhost:7002
+stdout_logfile=/var/log/supervisor/%(program_name)s.log
+stderr_logfile=/var/log/supervisor/%(program_name)s.log
+autorestart=true
 "
 
 count=1

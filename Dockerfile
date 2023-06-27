@@ -32,6 +32,12 @@ RUN wget -qO redis.tar.gz https://github.com/redis/redis/tarball/${redis_version
 
 RUN (cd /redis && make)
 
+RUN wget -qO redis-cluster-proxy.tar.gz https://github.com/RedisLabs/redis-cluster-proxy/archive/refs/tags/1.0-beta2.tar.gz \
+    && tar xzf redis-cluster-proxy.tar.gz -C / \
+    && mv /redis-cluster-proxy-* /redis-cluster-proxy
+
+RUN (cd /redis-cluster-proxy && make)
+
 RUN mkdir /redis-conf && mkdir /redis-data
 
 COPY redis-cluster.tmpl /redis-conf/redis-cluster.tmpl
